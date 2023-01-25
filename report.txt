@@ -1,0 +1,42 @@
+Please list all sources (people, books, webpages, etc.) you consulted regarding this assignment and how they helped: (Sources can be used broadly as reference for the general approach; YOU MUST NOT COPY CODE!)
+
+CSCE 221 Students: Haley Girard, Andrew, Santi, Vansh Amin
+
+Other People: Seth Polsley
+
+Printed Material: 
+
+Websites: 
+
+Other: 
+
+
+2. Regarding inheritance, what are pure virtual functions?
+    A pure virtual function is first written in the super class, but does not need to be defined, and can be set to = 0.
+    In the subclass, it is overwritten and defined with actual functionality.
+
+
+3. What are you observations on the runtime of the different hash table methods?
+    The chaining hash table is definitely much faster than the probing hash table. In fact, my probing hash table
+    was actually timing out because of how long it took at first, but even afterwards, it takes tens of seconds
+    whereas chainining only takes less than a second.
+
+
+4. We did an extremely simplified blockchain and cryptocurrency, using the requirement that the hash only needs to begin with '2'.  What mining approach did you create to try to find a valid nonce?
+    My mining function started with a basic character "!", which is in the middle of the ASCII table. Then, the minining
+    function would attempt to sign the current block with the nonce. If the signing failed and valid returned false, the
+    mining operation would loop back and get the next ASCII character. This would continue until the ASCII character yielded
+    a valid nonce, where the block's internal data would be set (hash, nonce), and the mining operation would end on that block.
+
+
+
+5. How might you approach this problem differently with a more restrictive problem?  For instance, if you change the validator to require the hash begin with "221", you will find the mining operation takes significantly more time.  Briefly discuss this in the context of modern cryptocurrency mining.
+    First of all, the ASCII table is quite restrictive. It only has 128 unique characters, thus, if the first 128 tries 
+    didn't yield a valid nonce which gave a hash that started with 221, then the mining function would loop forever. 
+    In this case, because it is a lot harder to find a hash with a specified start of 3 numbers than 1, there would need to be 
+    a larger space for trying different nonces. I would start with the 128 ASCII loop as before, but also keep an internal tracker
+    of iterations of the loop. Once the loop ran 127 times, instead of the loop changing the character nonce again, I would now
+    begin appending values to the nonce string, so that with each character added, I have another 128 options combined with my 
+    previous 128 options for the first character.
+    In modern cryptography, it is very important that nonces are hard to find. It makes sense that a real hash validator would be
+    so restrictive, as it would make it a lot harder to run a program to just brute force crack the nonce by looping through guesses.
